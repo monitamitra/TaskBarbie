@@ -12,6 +12,7 @@ let pauseTime;
 let userDurationHours, userDurationMinutes;
 let userInputHours, userInputMinutes;
 let isPaused = false;
+let inBreak = false;
 
 const timer = document.getElementById('timer');
 
@@ -101,11 +102,10 @@ const pause = () => {
   // manipulate timer time
   btnStartElement.classList.remove("hidden");
   btnPauseElement.classList.add("hidden");
+  btnBreakElement.classList.add("hidden");
 }
 
-const take_break = () => {
-  
-}
+// take break same as pause
 
 const pad = (number) => {
   return (number < 10) ? '0' + number : number;
@@ -140,5 +140,5 @@ btnPauseElement.addEventListener('click', stopTimer = () => {
 });
 
 btnBreakElement.addEventListener('click', stopTimer = () => {
-  take_break();
+    pause();
 });
