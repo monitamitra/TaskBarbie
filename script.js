@@ -16,6 +16,7 @@ const hours = document.querySelector('.hours');
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
 
+const alertSound = document.getElementById('alertSound');
 
 let timerTime = 0;
 let interval;
@@ -160,6 +161,7 @@ closeEnd.addEventListener('click', closingEnd = () => {
 
 // alert code
 function invokeBreakAlert() {
+    alertSound.play();
     breakAlert.classList.remove("hidden");
     breakText.innerText = getRandomQuote();
 }
@@ -167,6 +169,7 @@ function closeBreakDialog() {
     breakAlert.classList.add("hidden");
 }
 function invokeEndAlert() {
+    alertSound.play();
     endAlert.classList.remove("hidden");
     endText.innerText = getRandomQuote();
 }
