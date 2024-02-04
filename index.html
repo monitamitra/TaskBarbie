@@ -8,28 +8,14 @@
 <body>
     <p id="dialog-box"></p>
     <img id="barbie" src="images/acho-bark.png" alt="Picture of Barbie">
-    <label for="FT">Focus Timer</label>
-    <div id="FT" className="Focus_Timer">
-        <div>
-            <input type="text" id="timeHoursFocus" placeholder="0 hrs">
-            <input type="text" id="timeMinutesFocus" placeholder="0 mins">
-        </div>
-        <div>
-            <button id="startFocus" class="btn btn-lg btn-success" 
-            data-action="start">Start Timer</button>
-        </div>
+    <div>
+        <input type="text" id="timeHours" placeholder="0 hrs">
+        <input type="text" id="timeMinutes" placeholder="0 mins">
     </div>
-    <label for="BT">Break Timer</label>
-    <div id="BT" className="Break_Timer">
-        <div>
-            <input type="text" id="timeHoursBreak" placeholder="0 hrs">
-            <input type="text" id="timeMinutesBreak" placeholder="0 mins">
-        </div>
-        <div>
-            <button id="startBreak" class="btn btn-lg btn-success" 
-            data-action="start">Start Timer</button>
-        </div>
+    <div>
+        <button class="btn btn-lg btn-success" data-action="start">Start Timer</button>
     </div>
+
     <div class="jumbotron text-center">
     <div id="timer" class="hidden">
         <span class="hours">
