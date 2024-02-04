@@ -9,7 +9,7 @@ const seconds = document.querySelector('.seconds');
 const break_dropdown = document.querySelector('.break_minutes_div');
 let timerTime = 0;
 let savedTime = 0;
-let timeout = 0;
+let breakTime = 0;
 let interval;
 let pauseTime;
 let userDurationHours, userDurationMinutes;
@@ -19,30 +19,15 @@ let isBreak = false;
 
 const timer = document.getElementById('timer');
 
-
-const start = () => {
-  if (isPaused || isBreak) {
-    //isPaused = false;
-    // timerTime = pauseTime;
-    btnStartElement.classList.add("hidden");
-    btnPauseElement.classList.remove("hidden");
-    btnBreakElement.classList.remove("hidden");
-    break_dropdown.classList.add("hidden");
-  } 
-
+// want to exit the break, want to start the break
+const startFocus = () => {
   if (isPaused) {
     isPaused = false;
     timerTime = pauseTime;
-
-  }
-
-  if (isBreak) {
-    isBreak = false;
-    clearTimeout(timeout);
-
-  }
-
- if (!(isPaused || isBreak)) {
+    btnStartElement.classList.add("hidden");
+    btnPauseElement.classList.remove("hidden");
+    break_dropdown.classList.add("hidden");
+  } else {
     // get user input and parse
     // also make user input box go away once started
     userInputHours = document.getElementById("timeHours");
@@ -79,7 +64,62 @@ const start = () => {
         btnBreakElement.classList.remove("hidden");
     }
 
-   // break_dropdown.classList.add("hidden");
+    // show the timer
+    timer.classList.remove("hidden");
+
+    // display starting time
+    hours.innerText = pad(userDurationHours);
+    minutes.innerText = pad(userDurationMinutes);
+    
+    // decrement the timer every second starting right away
+    decrementTimer();
+    interval = setInterval(decrementTimer, 1000);
+  }
+}
+
+const startBreak = () => {
+  if (isPaused) {
+    isPaused = false;
+    timerTime = pauseTime;
+    btnStartElement.classList.add("hidden");
+    btnPauseElement.classList.remove("hidden");
+    break_dropdown.classList.add("hidden");
+  } else {
+    // get user input and parse
+    // also make user input box go away once started
+    userInputHours = document.getElementById("timeHours");
+    userInputHours.classList.add("hidden");
+    if (userInputHours.value == "") {
+            userInputHours.value = 0;
+        }
+    userDurationHours = parseInt(
+        document.getElementById("timeHours").value);
+
+    userInputMinutes = document.getElementById("timeMinutes");
+    userInputMinutes.classList.add("hidden");
+    if (userInputMinutes.value == "") {
+            userInputMinutes.value = 0;
+        }
+    userDurationMinutes = parseInt(
+        document.getElementById("timeMinutes"). value);
+
+    // set starting seconds
+    timerTime = (userDurationHours * 3600) + (userDurationMinutes * 60);
+    // }
+
+    // hide start and show other buttons
+    btnStartElement.classList.add("hidden");
+
+    // TODO: make more efficienct
+    if (btnStopElement.classList.contains("hidden")){
+        btnStopElement.classList.remove("hidden");
+    }
+    if (btnPauseElement.classList.contains("hidden")) {
+        btnPauseElement.classList.remove("hidden");
+    }
+    if (btnBreakElement.classList.contains("hidden")) {
+        btnBreakElement.classList.remove("hidden");
+    }
 
     // show the timer
     timer.classList.remove("hidden");
@@ -127,14 +167,14 @@ const pause = () => {
 
 // take break same as pause
 const take_break = () => {
+  // pause();
   isBreak = true;
-  pause();
   break_dropdown.classList.remove("hidden");
- // btnStartElement.classList.remove("hidden");
+  btnStartElement.classList.remove("hidden");
   let minutes = parseInt(document.getElementById("break_minutes").value);
-  // savedTime = timerTime;
-  // timerTime = minutes;
-  timeout = setTimeout(start(), minutes * 60000);
+  breakTime = minutes;
+  savedTime = timerTime;
+  timerTime = minutes;
 }
 
 const pad = (number) => {
@@ -144,6 +184,10 @@ const pad = (number) => {
 const decrementTimer = () => {
   if (!isPaused) {
     if (timerTime <= 0) {
+        if(isBreak) {
+          isBreak = false;
+          timerTime = savedTime;
+        }
         stop();
     }
     const numberHours = Math.floor(timerTime / 3600);
