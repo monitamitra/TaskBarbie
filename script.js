@@ -20,26 +20,27 @@ const start = () => {
   if (isPaused) {
     isPaused = false;
     timerTime = pauseTime;
+    btnStartElement.classList.add("hidden");
+    btnPauseElement.classList.remove("hidden");
   }
   else {
     // get user input and parse
     // also make user input box go away once started
-    let userInputHours = document.getElementById("timeHours");
+    userInputHours = document.getElementById("timeHours");
     userInputHours.classList.add("hidden");
     if (userInputHours.value == "") {
             userInputHours.value = 0;
         }
-    let userDurationHours = parseInt(
+    userDurationHours = parseInt(
         document.getElementById("timeHours").value);
 
-    let userInputMinutes = document.getElementById("timeMinutes");
+    userInputMinutes = document.getElementById("timeMinutes");
     userInputMinutes.classList.add("hidden");
     if (userInputMinutes.value == "") {
             userInputMinutes.value = 0;
         }
-    let userDurationMinutes = parseInt(
-        document.getElementById("timeMinutes").
-    value);
+    userDurationMinutes = parseInt(
+        document.getElementById("timeMinutes"). value);
 
     // set starting seconds
     timerTime = (userDurationHours * 3600) + (userDurationMinutes * 60);
