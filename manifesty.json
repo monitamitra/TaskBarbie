@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Task Barbie",
+    "version": "0.1.0",
+    "description": "Hi Barbie! Amplify your productivity today with Task Barbie!",
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "images/barbie.png"
+        }
+    },
+    "permissions": [
+
+    ]
+}

@@ -2,12 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Acho, where are we?</title>
+    <title>Task Barbie</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <p id="dialog-box"></p>
-    <img id="acho" src="images/acho-bark.png" alt="Acho the pup">
+    <img id="barbie" src="images/acho-bark.png" alt="Picture of Barbie">
+    <div>
+        <input type="text" id="timeHours" placeholder="0 hrs">
+        <input type="text" id="timeMinutes" placeholder="0 mins">
+    </div>
+    <div>
+        <button class="btn btn-lg btn-success" data-action="start">Start Timer</button>
+    </div>
+
+    <div class="jumbotron text-center">
+    <div id="timer" class="hidden">
+        <span class="hours">
+        00
+        </span>
+        :
+        <span class="minutes">
+        00
+        </span>
+        :
+        <span class="seconds">
+        00
+        </span>
+    </div>
+    <div class="time-buttons">
+        <button class="btn btn-lg btn-danger hidden" data-action="pause">
+        Pause
+        </button>
+        <button class="btn btn-lg btn-link btn-block hidden" data-action="break">
+        Break
+        </button>
+        <button class="btn btn-lg btn-danger hidden" data-action="stop">
+        Stop
+        </button>
+    </div>
+    </div>
 
     <script src='script.js'></script>
 </body>
