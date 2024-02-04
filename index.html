@@ -4,45 +4,32 @@
     <meta charset="UTF-8">
     <title>Task Barbie</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.cdnfonts.com/css/barbie" rel="stylesheet">
 </head>
 <body>
-    <p id="dialog-box"></p>
-    <img id="barbie" src="images/acho-bark.png" alt="Picture of Barbie">
-    <div>
+
+<div class="content-container">
+    <img id="barbie" class="center" src="images/barbie.png" width="150" height="150" alt="Picture of Barbie">
+    
+    <div class="inputs">
         <input type="text" id="timeHours" placeholder="0 hrs">
         <input type="text" id="timeMinutes" placeholder="0 mins">
     </div>
-    <div>
+    
+    <div class="startTimer">
         <button class="btn btn-lg btn-success" data-action="start">Start Timer</button>
     </div>
 
-    <div class="jumbotron text-center">
     <div id="timer" class="hidden">
-        <span class="hours">
-        00
-        </span>
-        :
-        <span class="minutes">
-        00
-        </span>
-        :
-        <span class="seconds">
-        00
-        </span>
+        <span class="hours">00</span> : <span class="minutes">00</span> : <span class="seconds">00</span>
     </div>
+    
     <div class="time-buttons">
-        <button class="btn btn-lg btn-danger hidden" data-action="pause">
-        Pause
-        </button>
-        <button class="btn btn-lg btn-link btn-block hidden" data-action="break">
-        Break
-        </button>
-        <button class="btn btn-lg btn-danger hidden" data-action="stop">
-        Stop
-        </button>
+        <button class="btn btn-lg btn-danger hidden" data-action="pause">Pause</button>
+        <button class="btn btn-lg btn-danger hidden" data-action="stop">Stop</button>
     </div>
-    </div>
+</div>
 
-    <script src='script.js'></script>
+<script src='script.js'></script>
 </body>
 </html>
