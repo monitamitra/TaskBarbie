@@ -11,6 +11,17 @@
     <div>
         <input type="text" id="timeHours" placeholder="0 hrs">
         <input type="text" id="timeMinutes" placeholder="0 mins">
+        <div class="hidden break_minutes_div">
+            <label for="minutes">How long do you want to take a break?:</label>
+            <select id="break_minutes" name="minutes" size="3">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+            </select>
+        </div>
     </div>
     <div>
         <button class="btn btn-lg btn-success" data-action="start">Start Timer</button>

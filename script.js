@@ -6,25 +6,43 @@ const btnBreakElement = document.querySelector('[data-action="break"]');
 const hours = document.querySelector('.hours');
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
+const break_dropdown = document.querySelector('.break_minutes_div');
 let timerTime = 0;
+let savedTime = 0;
+let timeout = 0;
 let interval;
 let pauseTime;
 let userDurationHours, userDurationMinutes;
 let userInputHours, userInputMinutes;
 let isPaused = false;
-let inBreak = false;
+let isBreak = false;
 
 const timer = document.getElementById('timer');
 
 
 const start = () => {
+  if (isPaused || isBreak) {
+    //isPaused = false;
+    // timerTime = pauseTime;
+    btnStartElement.classList.add("hidden");
+    btnPauseElement.classList.remove("hidden");
+    btnBreakElement.classList.remove("hidden");
+    break_dropdown.classList.add("hidden");
+  } 
+
   if (isPaused) {
     isPaused = false;
     timerTime = pauseTime;
-    btnStartElement.classList.add("hidden");
-    btnPauseElement.classList.remove("hidden");
+
   }
-  else {
+
+  if (isBreak) {
+    isBreak = false;
+    clearTimeout(timeout);
+
+  }
+
+ if (!(isPaused || isBreak)) {
     // get user input and parse
     // also make user input box go away once started
     userInputHours = document.getElementById("timeHours");
@@ -61,6 +79,8 @@ const start = () => {
         btnBreakElement.classList.remove("hidden");
     }
 
+   // break_dropdown.classList.add("hidden");
+
     // show the timer
     timer.classList.remove("hidden");
 
@@ -79,12 +99,12 @@ const stop = () => {
   reset();
 
   btnStartElement.classList.remove("hidden");
-
   btnStopElement.classList.add("hidden");
   btnPauseElement.classList.add("hidden");
   btnBreakElement.classList.add("hidden");
   userInputHours.classList.remove("hidden");
   userInputMinutes.classList.remove("hidden");
+  break_dropdown.classList.add("hidden");
   timer.classList.add("hidden");
 }
 
@@ -106,6 +126,16 @@ const pause = () => {
 }
 
 // take break same as pause
+const take_break = () => {
+  isBreak = true;
+  pause();
+  break_dropdown.classList.remove("hidden");
+ // btnStartElement.classList.remove("hidden");
+  let minutes = parseInt(document.getElementById("break_minutes").value);
+  // savedTime = timerTime;
+  // timerTime = minutes;
+  timeout = setTimeout(start(), minutes * 60000);
+}
 
 const pad = (number) => {
   return (number < 10) ? '0' + number : number;
@@ -140,5 +170,5 @@ btnPauseElement.addEventListener('click', stopTimer = () => {
 });
 
 btnBreakElement.addEventListener('click', stopTimer = () => {
-    pause();
+  take_break();
 });
