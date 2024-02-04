@@ -7,6 +7,7 @@ const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
 let timerTime = 0;
 let interval;
+let breakInterval = 0;
 let pauseTime;
 let userDurationHours, userDurationMinutes;
 let userInputHours, userInputMinutes;
@@ -16,6 +17,7 @@ const timer = document.getElementById('timer');
 
 // want to exit the break, want to start the break
 const start = () => {
+  breakInterval = setInterval(invokeBreakAlert(), 1000*20);
   if (isPaused) {
     isPaused = false;
     timerTime = pauseTime;
@@ -70,6 +72,7 @@ const start = () => {
 
 const stop = () => {
   clearInterval(interval);
+  clearInterval(breakInterval);
   reset();
 
   btnStartElement.classList.remove("hidden");
@@ -103,6 +106,7 @@ const pad = (number) => {
 const decrementTimer = () => {
   if (!isPaused) {
     if (timerTime <= 0) {
+      invokeEndAlert();
         stop();
     }
     const numberHours = Math.floor(timerTime / 3600);
