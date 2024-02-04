@@ -95,19 +95,12 @@
   }
 
   .alert {
-    /*display: none;*/
     background-color: white;
-    border: 1px solid pink;
-    position: fixed;
-    width: 250px;
-    left: 45%;
-    top: 2%;
-    padding: 6px 8px 8px;
+    border: 1px solid #E91E63;
     text-align: center;
-}
-
-#end_alert {
-    display: none;
+    margin: auto;
+    width: 90%;
+    padding: 10px;
 }
 
 .alertPics {
@@ -117,9 +110,10 @@
 
 .alertButtons {
     border-radius: 12px;
-    height: 2rem;
     padding: 10px;
     cursor: pointer;
-    border: 2px solid green;
-    background-color: aqua;
+    border: 2px solid white;
+    background-color: #E91E63;
+    color: white;
+    height: 2rem;
 }

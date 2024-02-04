@@ -2,9 +2,21 @@
 const btnStartElement = document.querySelector('[data-action="start"]');
 const btnStopElement = document.querySelector('[data-action="stop"]');
 const btnPauseElement = document.querySelector('[data-action="pause"]');
+
+const breakAlert = document.getElementById("break_alert");
+const endAlert = document.getElementById("end_alert");
+
+const breakText = document.getElementById("break_text");
+const endText = document.getElementById("finish_text");
+
+const closeBreak = document.getElementById("close_break");
+const closeEnd = document.getElementById("close_end");
+
 const hours = document.querySelector('.hours');
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
+
+
 let timerTime = 0;
 let interval;
 let breakInterval = 0;
@@ -12,12 +24,14 @@ let pauseTime;
 let userDurationHours, userDurationMinutes;
 let userInputHours, userInputMinutes;
 let isPaused = false;
+let breakCounter = 0;
 
 const timer = document.getElementById('timer');
 
 // want to exit the break, want to start the break
 const start = () => {
-  breakInterval = setInterval(invokeBreakAlert(), 1000*20);
+  breakAlert.classList.add("hidden");
+  endAlert.classList.add("hidden");
   if (isPaused) {
     isPaused = false;
     timerTime = pauseTime;
@@ -72,7 +86,7 @@ const start = () => {
 
 const stop = () => {
   clearInterval(interval);
-  clearInterval(breakInterval);
+  // clearInterval(breakInterval);
   reset();
 
   btnStartElement.classList.remove("hidden");
@@ -93,7 +107,6 @@ const reset = () => {
 const pause = () => {
   isPaused = true;
   pauseTime = timerTime;
-  // clearInterval(interval);
   // manipulate timer time
   btnStartElement.classList.remove("hidden");
   btnPauseElement.classList.add("hidden");
@@ -105,7 +118,7 @@ const pad = (number) => {
 
 const decrementTimer = () => {
   if (!isPaused) {
-    if (timerTime <= 0) {
+    if (timerTime == 0) {
       invokeEndAlert();
         stop();
     }
@@ -117,6 +130,11 @@ const decrementTimer = () => {
     minutes.innerText = pad(numberMinutes);
     seconds.innerText = pad(numberSeconds);
     timerTime--;
+    breakCounter++;
+    if (breakCounter == 13) { //TODO
+        invokeBreakAlert();
+        breakCounter = 0;
+    }
   }
 }
 
@@ -128,6 +146,65 @@ btnStopElement.addEventListener('click', stopTimer = () => {
   stop();
 });
 
-btnPauseElement.addEventListener('click', stopTimer = () => {
+btnPauseElement.addEventListener('click', pausingTimer = () => {
   pause();
 });
+
+closeBreak.addEventListener('click', closingBreak = () => {
+  closeBreakDialog();
+});
+
+closeEnd.addEventListener('click', closingEnd = () => {
+  closeEndDialog();
+});
+
+// alert code
+function invokeBreakAlert() {
+    breakAlert.classList.remove("hidden");
+    breakText.innerText = getRandomQuote();
+}
+function closeBreakDialog() {
+    breakAlert.classList.add("hidden");
+}
+function invokeEndAlert() {
+    endAlert.classList.remove("hidden");
+    endText.innerText = getRandomQuote();
+}
+function closeEndDialog() {
+    endAlert.classList.add("hidden");
+}
+
+// Quote data
+let quotes = [];
+
+
+
+fetch("https://type.fit/api/quotes")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        quotes = data;
+
+    })
+
+    .catch(error => console.error("Failed to fetch quotes:", error));
+
+
+
+const getRandomQuote = () => {
+
+    if (quotes.length > 0) {
+
+        const index = Math.floor(Math.random() * quotes.length);
+
+        return `"${quotes[index].text}"`;
+
+    } else {
+
+        return { text: "No quotes loaded yet.", author: "" };
+
+    }
+
+};
