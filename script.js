@@ -21,7 +21,6 @@ const start = () => {
     timerTime = pauseTime;
     btnStartElement.classList.add("hidden");
     btnPauseElement.classList.remove("hidden");
-    break_dropdown.classList.add("hidden");
   } else {
     // get user input and parse
     // also make user input box go away once started
